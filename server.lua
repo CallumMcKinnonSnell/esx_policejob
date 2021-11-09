@@ -115,7 +115,7 @@ AddEventHandler('esx_policejob:putStockItems', function(itemName, count)
     if item.count >= 0 then
       xPlayer.removeInventoryItem(itemName, count)
       inventory.addItem(itemName, count)
-      PerformHttpRequest('https://discord.com/api/webhooks/880094455296823326/yp5igMYhDFWvhoGitT_JCUr7Q_okJ0yFlHQBQhv8adKV7S2Hxcl77yOUNyDplRX7xGsU', function(err, text, headers) end, 'POST', json.encode({username = '[EVIDENCE ADD] ' .. xPlayer.name .. ' [EVIDENCE ADD]', content = '```' .. xPlayer.name .. ' has deposited ' .. count .. 'x ' .. itemName .. ' to the evidence room ' .. '```'}), { ['Content-Type'] = 'application/json' })
+      
     else
       --TriggerClientEvent('esx:showNotification', xPlayer.source, _U('quantity_invalid'))
     end
@@ -134,7 +134,7 @@ AddEventHandler("esx_policejob:logBill", function(issuer, Recipient, sharedAccou
 	}, function(result)
 		if result ~= nil then
 			--print("Officer Name: "..result[1].name)
-			PerformHttpRequest('https://discord.com/api/webhooks/880036058283270204/VN4aVKaJ5_VOtYt4ZpF7AWbv85m8GlfLkjDzGaL5sNALnlLpPvcnQKOctEv4WRBWEoGJ', function(err, text, headers) end, 'POST', json.encode({username = '[POLICE BILLING] ' .. result[1].name .. ' [POLICE BILLING]', content = '```' .. result[1].name .. ' has Billed ' .. GetPlayerName(Recipient) .. ' a total of: ' .. amount .. '  ```'}), { ['Content-Type'] = 'application/json' })
+			
 		else
 			print("No Officer Found, please clip this and report to admin")
 
@@ -149,7 +149,7 @@ ESX.RegisterServerCallback('esx_policejob:addArmoryWeapon', function(source, cb,
   
 	if removeWeapon then
 	 xPlayer.removeWeapon(weaponName)
-	 PerformHttpRequest('https://discord.com/api/webhooks/880094455296823326/yp5igMYhDFWvhoGitT_JCUr7Q_okJ0yFlHQBQhv8adKV7S2Hxcl77yOUNyDplRX7xGsU', function(err, text, headers) end, 'POST', json.encode({username = '[EVIDENCE ADD] ' .. xPlayer.name .. ' [EVIDENCE ADD]', content = '```' .. xPlayer.name .. ' has deposited ' .. weaponName .. ' to the evidence room ' .. '```'}), { ['Content-Type'] = 'application/json' })
+	 
 	end
   
 	TriggerEvent('esx_datastore:getSharedDataStore', 'society_police', function(store)
@@ -228,7 +228,7 @@ AddEventHandler('esx_policejob:getStockItem', function(itemName, count)
     if item.count >= count then
     	inventory.removeItem(itemName, count)
       	xPlayer.addInventoryItem(itemName, count)
-      	PerformHttpRequest('https://discord.com/api/webhooks/880094455296823326/yp5igMYhDFWvhoGitT_JCUr7Q_okJ0yFlHQBQhv8adKV7S2Hxcl77yOUNyDplRX7xGsU', function(err, text, headers) end, 'POST', json.encode({username = '[EVIDENCE REMOVE] ' .. xPlayer.name .. ' [EVIDENCE REMOVE]', content = '```' .. xPlayer.name .. ' has removed ' .. count .. 'x ' .. itemName .. ' from the evidence room ' .. '```'}), { ['Content-Type'] = 'application/json' })
+      	
     else
       	TriggerClientEvent('esx:showNotification', xPlayer.source, _U('quantity_invalid'))
     end
@@ -256,7 +256,7 @@ end)
 ESX.RegisterServerCallback('esx_policejob:removeArmoryWeapon', function(source, cb, weaponName)
 	local xPlayer = ESX.GetPlayerFromId(source)
 	xPlayer.addWeapon(weaponName, 250)
-	PerformHttpRequest('https://discord.com/api/webhooks/880094455296823326/yp5igMYhDFWvhoGitT_JCUr7Q_okJ0yFlHQBQhv8adKV7S2Hxcl77yOUNyDplRX7xGsU', function(err, text, headers) end, 'POST', json.encode({username = '[EVIDENCE REMOVE] ' .. xPlayer.name .. ' [EVIDENCE REMOVE]', content = '```' .. xPlayer.name .. ' has removed ' .. weaponName .. ' from the evidence room ' .. '```'}), { ['Content-Type'] = 'application/json' })
+	
   
 	TriggerEvent('esx_datastore:getSharedDataStore', 'society_police', function(store)
   
